@@ -5,7 +5,8 @@ using Web_Store.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var connectionString = builder.Configuration.GetConnectionString("Web_Store") ?? throw new InvalidOperationException("Connection string 'Web_Store' not found.");
+var connectionString = builder.Configuration.GetConnectionString("ShopDB" +
+    "") ?? throw new InvalidOperationException("Connection string 'ShopDB' not found.");
 
 
 builder.Services.AddDbContext<Appdbcontext>(options =>
