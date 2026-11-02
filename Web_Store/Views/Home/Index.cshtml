@@ -1,60 +1,128 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+}
+@model List<Web_Store.Models.Product>
+
+<style>
+    /* Dàn đều 3 cột lấp đầy toàn bộ khoảng trống bên phải */
+    .product_gallery {
+        float: left !important;
+        width: 31.3% !important;
+        margin-right: 3% !important;
+        margin-bottom: 30px !important;
+        box-sizing: border-box !important;
     }
-    @model List<Web_Store.Models.Product>
 
+        /* Sản phẩm thứ 3 trong hàng bỏ margin phải để thẳng hàng */
+        .product_gallery.no_margin_right {
+            margin-right: 0 !important;
+        }
 
-<div class="col col_14 product_gallery">
-            	<a href="productdetail.html"><img src="~/assets/images/product/01.jpg" alt="Product 01" /></a>
-                <h3>Ut eu feugiat</h3>
-                <p class="product_price">$ 100</p>
-                <a href="shoppingcart.html" class="add_to_cart">Add to Cart</a>
-            </div>        	
-            <div class="col col_14 product_gallery">
-            	<a href="productdetail.html"><img src="~/assets/images/product/02.jpg" alt="Product 02" /></a>
-                <h3>Curabitur et turpis</h3>
-                <p class="product_price">$ 200</p>
-                <a href="shoppingcart.html" class="add_to_cart">Add to Cart</a>
-            </div>        	
-            <div class="col col_14 product_gallery no_margin_right">
-            	<a href="productdetail.html"><img src="~/assets/images/product/03.jpg" alt="Product 03" /></a>
-                <h3>Mauris consectetur</h3>
-                <p class="product_price">$ 120</p>
-                <a href="shoppingcart.html" class="add_to_cart">Add to Cart</a>
-            </div>        	
-            <div class="col col_14 product_gallery">
-            	<a href="productdetail.html"><img src="~/assets/images/product/04.jpg" alt="Product 04" /></a>
-                <h3>Proin volutpat</h3>
-                <p class="product_price">$ 260</p>
-                <a href="shoppingcart.html" class="add_to_cart">Add to Cart</a>
-            </div>        	
-            <div class="col col_14 product_gallery">
-            	<a href="productdetail.html"><img src="~/assets/images/product/05.jpg" alt="Product 05" /></a>
-                <h3>Aenean tempus</h3>
-                <p class="product_price">$ 80</p>
-                <a href="shoppingcart.html" class="add_to_cart">Add to Cart</a>
-            </div>        	
-            <div class="col col_14 product_gallery no_margin_right">
-            	<a href="productdetail.html"><img src="~/assets/images/product/06.jpg" alt="Product 06" /></a>
-                <h3>Nulla luctus urna</h3>
-                <p class="product_price">$ 193</p>
-                <a href="shoppingcart.html" class="add_to_cart">Add to Cart</a>
-            </div>        	
-            <div class="col col_14 product_gallery">
-            	<a href="productdetail.html"><img src="~/assets/images/product/07.jpg" alt="Product 07" /></a>
-                <h3>Pellentesque egestas</h3>
-                <p class="product_price">$ 30</p>
-                <a href="shoppingcart.html" class="add_to_cart">Add to Cart</a>
-            </div>        	
-            <div class="col col_14 product_gallery">
-            	<a href="productdetail.html"><img src="~/assets/images/product/08.jpg" alt="Product 08" /></a>
-                <h3>Suspendisse porttitor</h3>
-                <p class="product_price">$ 220</p>
-                <a href="shoppingcart.html" class="add_to_cart">Add to Cart</a>
-            </div>        	
-            <div class="col col_14 product_gallery no_margin_right">
-            	<a href="productdetail.html"><img src="~/assets/images/product/09.jpg" alt="Product 09" /></a>
-                <h3>Nam vehicula</h3>
-                <p class="product_price">$ 65</p>
-                <a href="shoppingcart.html" class="add_to_cart">Add to Cart</a>
-            </div> 
+        /* Khung chứa ảnh chiếm trọn 100% chiều rộng cột, có chiều cao cố định cân đối */
+        .product_gallery .product-img-box {
+            position: relative !important;
+            overflow: hidden !important;
+            display: block !important;
+            width: 100% !important;
+            height: 200px !important;
+            background: #f9f9f9 !important;
+        }
+
+            /* Ép ảnh lấp đầy khung vuông, không bị méo hình */
+            .product_gallery .product-img-box img {
+                width: 100% !important;
+                height: 100% !important;
+                object-fit: cover !important;
+                display: block !important;
+                transition: all 0.3s ease-in-out !important;
+            }
+
+            /* Ép ẩn hoàn toàn cụm nút khi chưa hover */
+            .product_gallery .product-img-box .product-action {
+                position: absolute !important;
+                top: 50% !important;
+                left: 50% !important;
+                transform: translate(-50%, -50%) !important;
+                display: flex !important;
+                gap: 5px !important;
+                z-index: 99 !important;
+                opacity: 0 !important;
+                visibility: hidden !important;
+                transition: all 0.3s ease-in-out !important;
+            }
+
+        /* Định dạng style cho các nút icon */
+        .product_gallery .product-action a {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            width: 35px !important;
+            height: 35px !important;
+            background: #ffffff !important;
+            color: #333 !important;
+            text-decoration: none !important;
+            border: 1px solid #ddd !important;
+            border-radius: 4px !important;
+        }
+
+            .product_gallery .product-action a:hover {
+                background: #FFD333 !important;
+                color: #fff !important;
+                border-color: #FFD333 !important;
+            }
+
+        /* Hiệu ứng khi rê chuột vào khung ảnh: Ảnh mờ nhẹ và nút hiện lên */
+        .product_gallery .product-img-box:hover img {
+            opacity: 0.7 !important;
+        }
+
+        .product_gallery .product-img-box:hover .product-action {
+            opacity: 1 !important;
+            visibility: visible !important;
+        }
+</style>
+
+<h2>New Products</h2>
+
+@if (Model != null && Model.Any())
+{
+    int count = 0;
+    @foreach (var item in Model)
+    {
+        count++;
+        // Cứ sản phẩm thứ 3 trong hàng sẽ tự động thêm class "no_margin_right"
+        string extraClass = (count % 3 == 0) ? "col col_14 product_gallery no_margin_right" : "col col_14 product_gallery";
+
+        <div class="@extraClass">
+            <div class="product-img-box">
+                <a href="@Url.Action("Detail", "Product", new { id = item.Id })">
+                    <!-- Ảnh tự động gọi theo Id (01.jpg, 02.jpg, ...) -->
+                    <img src="~/assets/images/product/@(item.Id.ToString("00")).jpg" alt="@item.Name" />
+                </a>
+
+                <!-- Cụm nút hành động ẩn đi và chỉ hiện khi rê chuột vào ảnh -->
+                <div class="product-action">
+                    <a href="@Url.Action("AddToCart", "Cart", new { id = item.Id })" title="Add to Cart">🛒</a>
+                    <a href="#" title="Wishlist">❤️</a>
+                    <a href="@Url.Action("Detail", "Product", new { id = item.Id })" title="Quick View">🔍</a>
+                </div>
+            </div>
+
+            <h3>@item.Name</h3>
+            <p class="product_price">$ @item.Price</p>
+            <a href="@Url.Action("AddToCart", "Cart", new { id = item.Id })" class="add_to_cart">Add to Cart</a>
+        </div>
+
+        // Cứ hết 3 sản phẩm thì tự động ngắt dòng bằng thẻ cleaner
+        if (count % 3 == 0)
+        {
+            <div class="cleaner"></div>
+        }
+    }
+}
+else
+{
+    <p>Chưa có sản phẩm nào trong cơ sở dữ liệu.</p>
+}
+
+<div class="cleaner"></div>

@@ -1,31 +1,68 @@
-html {
-  font-size: 14px;
+/* --- Khung chứa ảnh sản phẩm --- */
+.product_gallery .product-img-box {
+    position: relative !important;
+    overflow: hidden !important;
+    display: inline-block !important;
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    /* Ảnh sản phẩm và hiệu ứng chuyển động */
+    .product_gallery .product-img-box img {
+        display: block !important;
+        transition: all 0.3s ease-in-out !important;
+    }
+
+    /* --- Cụm nút hành động (Mặc định bị ép ẩn hoàn toàn) --- */
+    .product_gallery .product-img-box .product-action {
+        position: absolute !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        display: flex !important;
+        gap: 5px !important;
+        z-index: 99 !important;
+        opacity: 0 !important; /* Ép làm trong suốt */
+        visibility: hidden !important; /* Ép ẩn hẳn đi */
+        transition: all 0.3s ease-in-out !important;
+    }
+
+/* Định dạng hình thức từng nút icon bên trong */
+.product_gallery .product-action a {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 35px !important;
+    height: 35px !important;
+    background: #ffffff !important;
+    color: #333 !important;
+    text-decoration: none !important;
+    border: 1px solid #ddd !important;
+    transition: all 0.2s ease-in-out !important;
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    .product_gallery .product-action a:hover {
+        background: #FFD333 !important;
+        color: #fff !important;
+        border-color: #FFD333 !important;
+    }
+
+/* --- Khi rê chuột (hover) vào khung ảnh thì ép hiện lên --- */
+.product_gallery .product-img-box:hover img {
+    opacity: 0.7 !important; /* Làm mờ nhẹ ảnh gốc giống mẫu */
 }
 
-html {
-  position: relative;
-  min-height: 100%;
+.product_gallery .product-img-box:hover .product-action {
+    opacity: 1 !important; /* Ép hiện rõ 100% */
+    visibility: visible !important; /* Ép bật hiển thị */
 }
 
-body {
-  margin-bottom: 60px;
+/* --- Định dạng bố cục các ô sản phẩm --- */
+.product_gallery {
+    float: left !important;
+    width: 160px !important;
+    margin-right: 20px !important;
+    margin-bottom: 20px !important;
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
-}
-
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
-}
+    .product_gallery.no_margin_right {
+        margin-right: 0 !important;
+    }
