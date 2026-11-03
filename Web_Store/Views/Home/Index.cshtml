@@ -96,8 +96,8 @@
         <div class="@extraClass">
             <div class="product-img-box">
                 <a href="@Url.Action("Detail", "Product", new { id = item.Id })">
-                    <!-- Ảnh tự động gọi theo Id (01.jpg, 02.jpg, ...) -->
-                    <img src="~/assets/images/product/@(item.Id.ToString("00")).jpg" alt="@item.Name" />
+                    <!-- Gọi trực tiếp tên file ảnh từ cột Image trong Database -->
+                    <img src="~/assets/images/product/@item.Image" alt="@item.Name" />
                 </a>
 
                 <!-- Cụm nút hành động ẩn đi và chỉ hiện khi rê chuột vào ảnh -->

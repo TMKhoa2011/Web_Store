@@ -9,5 +9,6 @@
         public int? CategoryId { get; set; }
         public Category? Category { get; set; }
         public ICollection<Order_Product>? OrderProducts { get; set; }
+        public string Image { get; set; }
     }
 }
