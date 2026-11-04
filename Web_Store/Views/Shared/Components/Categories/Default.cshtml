@@ -1,0 +1,18 @@
+﻿@model List<Web_Store.Models.Category>
+
+<h3>Categories</h3>
+<ul class="sidebar_menu">
+    @if (Model != null && Model.Any())
+    {
+        foreach (var item in Model)
+        {
+            <li>
+                <a href="@Url.Action("Index", "Home", new { catId = item.Id })">@item.Name</a>
+            </li>
+        }
+    }
+    else
+    {
+        <li><a href="#">Chưa có danh mục nào</a></li>
+    }
+</ul>
