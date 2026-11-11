@@ -7,7 +7,7 @@
         foreach (var item in Model)
         {
             <li>
-                <a href="@Url.Action("Index", "Home", new { catId = item.Id })">@item.Name</a>
+                <a href="~/product/listpro/@item.Id">@item.Name</a>
             </li>
         }
     }

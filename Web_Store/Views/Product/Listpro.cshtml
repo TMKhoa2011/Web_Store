@@ -1,0 +1,123 @@
+﻿@{
+    ViewData["Title"] = "List Products";
+}
+@model List<Web_Store.Models.Product>
+
+<style>
+    /* Dàn đều 3 cột lấp đầy toàn bộ khoảng trống bên phải */
+    .product_gallery {
+        float: left !important;
+        width: 31.3% !important;
+        margin-right: 3% !important;
+        margin-bottom: 30px !important;
+        box-sizing: border-box !important;
+    }
+
+        /* Sản phẩm thứ 3 trong hàng bỏ margin phải để thẳng hàng */
+        .product_gallery.no_margin_right {
+            margin-right: 0 !important;
+        }
+
+        /* Khung chứa ảnh chiếm trọn 100% chiều rộng cột, có chiều cao cố định cân đối */
+        .product_gallery .product-img-box {
+            position: relative !important;
+            overflow: hidden !important;
+            display: block !important;
+            width: 100% !important;
+            height: 200px !important;
+            background: #f9f9f9 !important;
+        }
+
+            /* Ép ảnh lấp đầy khung vuông, không bị méo hình */
+            .product_gallery .product-img-box img {
+                width: 100% !important;
+                height: 100% !important;
+                object-fit: cover !important;
+                display: block !important;
+                transition: all 0.3s ease-in-out !important;
+            }
+
+            /* Ép ẩn hoàn toàn cụm nút khi chưa hover */
+            .product_gallery .product-img-box .product-action {
+                position: absolute !important;
+                top: 50% !important;
+                left: 50% !important;
+                transform: translate(-50%, -50%) !important;
+                display: flex !important;
+                gap: 5px !important;
+                z-index: 99 !important;
+                opacity: 0 !important;
+                visibility: hidden !important;
+                transition: all 0.3s ease-in-out !important;
+            }
+
+        /* Định dạng style cho các nút icon */
+        .product_gallery .product-action a {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            width: 35px !important;
+            height: 35px !important;
+            background: #ffffff !important;
+            color: #333 !important;
+            text-decoration: none !important;
+            border: 1px solid #ddd !important;
+            border-radius: 4px !important;
+        }
+
+            .product_gallery .product-action a:hover {
+                background: #FFD333 !important;
+                color: #fff !important;
+                border-color: #FFD333 !important;
+            }
+
+        /* Hiệu ứng khi rê chuột vào khung ảnh: Ảnh mờ nhẹ và nút hiện lên */
+        .product_gallery .product-img-box:hover img {
+            opacity: 0.7 !important;
+        }
+
+        .product_gallery .product-img-box:hover .product-action {
+            opacity: 1 !important;
+            visibility: visible !important;
+        }
+</style>
+
+<h2>Danh sách sản phẩm theo danh mục</h2>
+
+@if (Model != null && Model.Any())
+{
+    int count = 0;
+    foreach (var item in Model)
+    {
+        count++;
+        string extraClass = (count % 3 == 0) ? "product_gallery no_margin_right" : "product_gallery";
+
+        <div class="@extraClass">
+            <div class="product-img-box">
+                <a href="@Url.Action("Detail", "Product", new { id = item.Id })">
+                    <img src="~/assets/images/product/@item.Image" alt="@item.Name" />
+                </a>
+
+                <div class="product-action">
+                    <a href="@Url.Action("AddToCart", "Cart", new { id = item.Id })" title="Add to Cart">🛒</a>
+                    <a href="#" title="Wishlist">❤️</a>
+                    <a href="@Url.Action("Detail", "Product", new { id = item.Id })" title="Quick View">🔍</a>
+                </div>
+            </div>
+
+            <h3>@item.Name</h3>
+            <p class="product_price">$ @item.Price</p>
+            <a href="@Url.Action("AddToCart", "Cart", new { id = item.Id })" class="add_to_cart">Add to Cart</a>
+        </div>
+
+        if (count % 3 == 0)
+        {
+            <div class="cleaner"></div>
+        }
+    }
+}
+else
+{
+    <p>Không có sản phẩm nào trong danh mục này.</p>
+}
+<div class="cleaner"></div>

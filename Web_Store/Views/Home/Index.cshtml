@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "New Products";
 }
 @model List<Web_Store.Models.Product>
 
@@ -82,16 +82,16 @@
         }
 </style>
 
-<h2>New Products</h2>
+<h2>Products List</h2>
 
 @if (Model != null && Model.Any())
 {
     int count = 0;
-    @foreach (var item in Model)
+    foreach (var item in Model)
     {
         count++;
         // Cứ sản phẩm thứ 3 trong hàng sẽ tự động thêm class "no_margin_right"
-        string extraClass = (count % 3 == 0) ? "col col_14 product_gallery no_margin_right" : "col col_14 product_gallery";
+        string extraClass = (count % 3 == 0) ? "product_gallery no_margin_right" : "product_gallery";
 
         <div class="@extraClass">
             <div class="product-img-box">
@@ -122,7 +122,6 @@
 }
 else
 {
-    <p>Chưa có sản phẩm nào trong cơ sở dữ liệu.</p>
+    <p>Chưa có sản phẩm nào trong danh mục này.</p>
 }
-
 <div class="cleaner"></div>
