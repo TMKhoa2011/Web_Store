@@ -1,0 +1,59 @@
+﻿@{
+    ViewData["Title"] = "Product Details";
+}
+@model Web_Store.Models.Product
+
+@if (Model != null)
+{
+    <h2>Product Details</h2>
+
+    <!-- Khung hiển thị hình ảnh sản phẩm bên trái -->
+    <div class="col col_13">
+        <a rel="lightbox[portfolio]" href="~/assets/images/product/@Model.Image" title="@Model.Name">
+            <img src="~/assets/images/product/@Model.Image" alt="@Model.Name" />
+        </a>
+    </div>
+
+    <!-- Khung thông số kỹ thuật và nút mua hàng bên phải -->
+    <div class="col col_13 no_margin_right">
+        <table>
+            <tr>
+                <td height="30" width="160">Price:</td>
+                <td>$@Model.Price</td>
+            </tr>
+            <tr>
+                <td height="30">Availability:</td>
+                <td>In Stock</td>
+            </tr>
+            <tr>
+                <td height="30">Model:</td>
+                <td>Product @Model.Id</td>
+            </tr>
+            <tr>
+                <td height="30">Manufacturer:</td>
+                <td>Web Store</td>
+            </tr>
+            <tr>
+                <td height="30">Quantity</td>
+                <td><input type="text" value="1" style="width: 20px; text-align: right" /></td>
+            </tr>
+        </table>
+
+        <div class="cleaner h20"></div>
+        <a href="@Url.Action("AddToCart", "Cart", new { id = Model.Id })" class="add_to_cart">Add to Cart</a>
+    </div>
+
+    <div class="cleaner h30"></div>
+
+    <h5><strong>Product Description</strong></h5>
+    <p>@(Model.Description ?? "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur semper quam sit amet turpis rhoncus id venenatis tellus sollicitudin.")</p>
+
+    <div class="cleaner h50"></div>
+
+    <h4>Other Products</h4>
+    <div class="cleaner"></div>
+}
+else
+{
+    <p>Không tìm thấy thông tin sản phẩm.</p>
+}

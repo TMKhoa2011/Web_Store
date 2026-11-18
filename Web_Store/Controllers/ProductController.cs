@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Web_Store.AppData;
-using Web_Store.Data; // Thay bằng namespace chứa DbContext của bạn nếu khác
-using Web_Store.Models; // Namespace chứa các Model (Product, Category...)
+using Web_Store.Data;
+using Web_Store.Models;
 
 namespace Web_Store.Controllers
 {
@@ -10,7 +10,6 @@ namespace Web_Store.Controllers
     {
         private readonly Appdbcontext _context;
 
-        // Inject AppDbContext vào Controller để thao tác với cơ sở dữ liệu
         public ProductController(Appdbcontext context)
         {
             _context = context;
@@ -28,6 +27,21 @@ namespace Web_Store.Controllers
                                                   .Where(p => p.CategoryId == id)
                                                   .ToListAsync();
             return View(listpro);
+        }
+
+        // === BỔ SUNG THÊM ACTION NÀY ĐỂ XEM CHI TIẾT SẢN PHẨM ===
+        public async Task<IActionResult> Detail(int id)
+        {
+            // Tìm sản phẩm trong cơ sở dữ liệu theo Id
+            var product = await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
+
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            // Trả về đúng tên file view "productdetail" kèm theo dữ liệu sản phẩm
+            return View("productdetail", product);
         }
     }
 }
