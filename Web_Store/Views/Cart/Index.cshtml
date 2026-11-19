@@ -1,0 +1,76 @@
+﻿@model List<Web_Store.Models.CartItem>
+@{
+    ViewData["Title"] = "Shopping Cart";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+    var grandTotal = Model?.Sum(x => x.Total) ?? 0m;
+}
+
+@if (Model != null && Model.Count > 0)
+{
+    <form asp-action="Update" asp-controller="Cart" method="post">
+        @Html.AntiForgeryToken()
+
+        <table width="100%" cellspacing="0" cellpadding="8" style="border-collapse: collapse;">
+            <tr style="background-color: #d6d6d6; color: #333; text-align: left;">
+                <th width="140">Image</th>
+                <th>Description</th>
+                <th width="80" align="center">Quantity</th>
+                <th width="70" align="right">Price</th>
+                <th width="70" align="right">Total</th>
+                <th width="70" align="center"></th>
+            </tr>
+
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                var item = Model[i];
+                <tr style="border-bottom: 1px solid #e5e5e5;">
+                    <td valign="middle">
+                        <img src="~/assets/images/product/@item.Image" alt="@item.Name" style="width: 110px; height: auto; display: block;" />
+                    </td>
+                    <td valign="middle">@item.Name</td>
+                    <td valign="middle" align="center">
+                        <input type="hidden" name="productIds[@i]" value="@item.ProductId" />
+                        <input type="text" name="quantities[@i]" value="@item.Quantity" style="width: 32px; text-align: center; padding: 2px;" />
+                    </td>
+                    <td valign="middle" align="right">$@item.Price</td>
+                    <td valign="middle" align="right">$@item.Total</td>
+                    <td valign="middle" align="center">
+                        <a href="@Url.Action("Remove", "Cart", new { id = item.ProductId })" style="color: #555; text-decoration: none; font-size: 11px; display: inline-block;">
+                            <span style="display: inline-block; border: 1px solid #aaa; width: 14px; height: 14px; line-height: 12px; font-weight: bold;">&times;</span><br />
+                            Remove
+                        </a>
+                    </td>
+                </tr>
+            }
+
+            <tr style="background-color: #ececec;">
+                <td colspan="3" align="right" style="padding: 12px 10px; color: #444;">
+                    Have you modified your basket? Please click here to
+                    <button type="submit" style="background: none; border: none; padding: 0; font-weight: bold; color: #222; text-decoration: underline; cursor: pointer;">Update</button>
+                </td>
+                <td colspan="2" align="right" style="background-color: #d6d6d6; padding: 12px 10px; font-weight: bold; color: #222;">
+                    Total &nbsp;&nbsp; $@grandTotal
+                </td>
+                <td style="background-color: #d6d6d6;"></td>
+            </tr>
+        </table>
+
+        <div class="cleaner h20"></div>
+
+        <div style="float: right; text-align: right;">
+            <div style="margin-bottom: 10px;">
+                <a href="@Url.Action("Checkout", "Home")" style="display: inline-block; padding: 8px 14px; background-color: #e8eef2; border: 1px solid #c5d3dc; color: #2b7cb3; font-weight: bold; text-decoration: none;">Proceed to Checkout</a>
+            </div>
+            <div>
+                <a href="@Url.Action("Index", "Product")" style="display: inline-block; padding: 8px 14px; background-color: #e8eef2; border: 1px solid #c5d3dc; color: #2b7cb3; font-weight: bold; text-decoration: none;">Continue Shopping</a>
+            </div>
+        </div>
+    </form>
+}
+else
+{
+    <p>Giỏ hàng của bạn đang trống.</p>
+    <p><a href="@Url.Action("Index", "Product")">Quay lại danh sách sản phẩm</a></p>
+}
+
+<div class="cleaner"></div>

@@ -1,5 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Product Details";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
 @model Web_Store.Models.Product
 
@@ -35,12 +36,14 @@
             </tr>
             <tr>
                 <td height="30">Quantity</td>
-                <td><input type="text" value="1" style="width: 20px; text-align: right" /></td>
+                <td><input type="text" id="txtQuantity" value="1" style="width: 20px; text-align: right" /></td>
             </tr>
         </table>
 
         <div class="cleaner h20"></div>
-        <a href="@Url.Action("AddToCart", "Cart", new { id = Model.Id })" class="add_to_cart">Add to Cart</a>
+        <a href="@Url.Action("AddToCart", "Cart", new { id = Model.Id })"
+           class="add_to_cart"
+           onclick="var qty = parseInt(document.getElementById('txtQuantity').value) || 1; this.href = '@Url.Action("AddToCart", "Cart", new { id = Model.Id })' + '?quantity=' + qty;">Add to Cart</a>
     </div>
 
     <div class="cleaner h30"></div>

@@ -1,5 +1,6 @@
-using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Text.Json;
+using Microsoft.AspNetCore.Mvc;
 using Web_Store.AppData;
 using Web_Store.Models;
 
@@ -9,16 +10,16 @@ namespace Web_Store.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly Appdbcontext _context;
+
         public HomeController(ILogger<HomeController> logger, Appdbcontext context)
         {
             _logger = logger;
             _context = context;
         }
-         public IActionResult Index()
+
+        public IActionResult Index()
         {
             List<Product> products = _context.Products.ToList();
-
-
             return View(products);
         }
 
@@ -32,16 +33,29 @@ namespace Web_Store.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
         public IActionResult About()
         {
             return View();
         }
+
         [HttpGet]
         public IActionResult Checkout()
         {
+            decimal total = 140m;
+            var json = HttpContext.Session.GetString("ShoppingCart");
+            if (!string.IsNullOrEmpty(json))
+            {
+                var cart = JsonSerializer.Deserialize<List<CartItem>>(json);
+                if (cart != null && cart.Count > 0)
+                {
+                    total = cart.Sum(x => x.Total);
+                }
+            }
+
             var model = new CheckoutViewModel
             {
-                TotalAmount = 140
+                TotalAmount = total
             };
             return View(model);
         }
@@ -57,6 +71,7 @@ namespace Web_Store.Controllers
 
             if (ModelState.IsValid)
             {
+                HttpContext.Session.Remove("ShoppingCart");
                 TempData["CheckoutSuccess"] = $"Đặt hàng thành công qua {paymentMethod ?? "Checkout"} cho {model.FullName}!";
                 return RedirectToAction("Index", "Home");
             }
