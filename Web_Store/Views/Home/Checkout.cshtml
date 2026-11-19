@@ -1,0 +1,91 @@
+﻿@model Web_Store.Models.CheckoutViewModel
+@{
+    ViewData["Title"] = "Checkout";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<h2>Checkout</h2>
+
+<form asp-action="Checkout" asp-controller="Home" method="post" id="checkoutForm">
+    @Html.AntiForgeryToken()
+
+    <div asp-validation-summary="ModelOnly" style="color: #c00; margin-bottom: 12px;"></div>
+
+    <h3>BILLING DETAILS</h3>
+
+    <div style="width: 48%; float: left; margin-right: 4%;">
+        <div style="margin-bottom: 12px;">
+            <label asp-for="FullName" style="display: block; margin-bottom: 4px;">Enter your full name as it is on the credit card:</label>
+            <input asp-for="FullName" class="txt_field" style="width: 95%; height: 24px; padding: 3px 6px;" />
+            <span asp-validation-for="FullName" style="color: #c00; font-size: 12px; display: block;"></span>
+        </div>
+
+        <div style="margin-bottom: 12px;">
+            <label asp-for="Address" style="display: block; margin-bottom: 4px;">Address:</label>
+            <input asp-for="Address" class="txt_field" style="width: 95%; height: 24px; padding: 3px 6px;" />
+            <span asp-validation-for="Address" style="color: #c00; font-size: 12px; display: block;"></span>
+        </div>
+
+        <div style="margin-bottom: 12px;">
+            <label asp-for="City" style="display: block; margin-bottom: 4px;">City:</label>
+            <input asp-for="City" class="txt_field" style="width: 95%; height: 24px; padding: 3px 6px;" />
+            <span asp-validation-for="City" style="color: #c00; font-size: 12px; display: block;"></span>
+        </div>
+
+        <div style="margin-bottom: 12px;">
+            <label asp-for="Country" style="display: block; margin-bottom: 4px;">Country:</label>
+            <input asp-for="Country" class="txt_field" style="width: 95%; height: 24px; padding: 3px 6px;" />
+            <span asp-validation-for="Country" style="color: #c00; font-size: 12px; display: block;"></span>
+        </div>
+    </div>
+
+    <div style="width: 48%; float: left;">
+        <div style="margin-bottom: 12px;">
+            <label asp-for="Email" style="display: block; margin-bottom: 4px;">E-MAIL</label>
+            <input asp-for="Email" class="txt_field" style="width: 95%; height: 24px; padding: 3px 6px;" />
+            <span asp-validation-for="Email" style="color: #c00; font-size: 12px; display: block;"></span>
+        </div>
+
+        <div style="margin-bottom: 12px;">
+            <label asp-for="Phone" style="display: block; margin-bottom: 4px;">PHONE</label>
+            <p style="font-size: 11px; color: #555; margin: 0 0 6px 0;">Please, specify your reachable phone number. YOU MAY BE GIVEN A CALL TO VERIFY AND COMPLETE THE ORDER.</p>
+            <input asp-for="Phone" class="txt_field" style="width: 95%; height: 24px; padding: 3px 6px;" />
+            <span asp-validation-for="Phone" style="color: #c00; font-size: 12px; display: block;"></span>
+        </div>
+    </div>
+
+    <div class="cleaner h20"></div>
+
+    <h3>Shopping Cart</h3>
+    <p style="font-weight: bold; margin-bottom: 12px;">TOTAL: $@Model.TotalAmount</p>
+
+    <div style="margin-bottom: 15px;">
+        <label style="cursor: pointer;">
+            <input asp-for="AcceptTerms" type="checkbox" /> I have accepted the Terms of Use.
+        </label>
+        <span asp-validation-for="AcceptTerms" style="color: #c00; font-size: 12px; display: block;"></span>
+    </div>
+
+    <table width="100%" cellspacing="0" cellpadding="10" style="border: 1px solid #ddd; border-collapse: collapse;">
+        <tr style="border-bottom: 1px solid #ddd;">
+            <td width="130" style="font-weight: bold; color: #003087; font-size: 18px;">PayPal</td>
+            <td style="font-size: 12px; color: #444;">Recommended if you have a Paypal account. Fastest delivery time.</td>
+            <td width="110" align="right">
+                <button type="submit" name="paymentMethod" value="PayPal" style="padding: 8px 12px; background: #e8eef2; border: 1px solid #c5d3dc; color: #2b7cb3; font-weight: bold; cursor: pointer;">PAYPAL</button>
+            </td>
+        </tr>
+        <tr>
+            <td width="130" style="font-weight: bold; color: #333; font-size: 18px;">2CO</td>
+            <td style="font-size: 12px; color: #444;">2Checkout.com, Inc. is an authorized retailer of goods and services provided by Template-Guide.com. 2Checkout accepts customer orders via online checks, Visa, MasterCard, Discover, American Express, Diners, JCB and debit cards with the Visa, Mastercard logo.</td>
+            <td width="110" align="right">
+                <button type="submit" name="paymentMethod" value="2Checkout" style="padding: 8px 12px; background: #e8eef2; border: 1px solid #c5d3dc; color: #2b7cb3; font-weight: bold; cursor: pointer;">2CHECKOUT</button>
+            </td>
+        </tr>
+    </table>
+</form>
+
+<div class="cleaner"></div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

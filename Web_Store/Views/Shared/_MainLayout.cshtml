@@ -2,31 +2,27 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Web Store Template</title>
+    <title>@(ViewData["Title"] ?? "Web Store Template")</title>
     <meta name="keywords" content="" />
     <meta name="description" content="" />
     <!-- templatemo 341 web store -->
     <!--
-Web Store Template
-http://www.templatemo.com/preview/templatemo_341_web_store
--->
+    Web Store Template
+    http://www.templatemo.com/preview/templatemo_341_web_store
+    -->
     <link href="~/assets/css/templatemo_style.css" rel="stylesheet" type="text/css" />
-
     <link rel="stylesheet" type="text/css" href="~/assets/css/ddsmoothmenu.css" />
 
     <script type="text/javascript" src="~/assets/js/jquery.min.js"></script>
     <script type="text/javascript" src="~/assets/js/ddsmoothmenu.js">
-
             /***********************************************
             - Smooth Navigational Menu- (c) Dynamic Drive DHTML code library (www.dynamicdrive.com)
             - This notice MUST stay intact for legal use
             - Visit Dynamic Drive at http://www.dynamicdrive.com/ for full source code
             ***********************************************/
-
     </script>
 
     <script type="text/javascript">
-
             ddsmoothmenu.init({
                 mainmenuid: "templatemo_menu", //menu DIV id
                 orientation: 'h', //Horizontal or vertical menu: Set to "h" or "v"
@@ -34,7 +30,6 @@ http://www.templatemo.com/preview/templatemo_341_web_store
                 //customtheme: ["#1c5a80", "#18374a"],
                 contentsource: "markup" //"markup" or ["container_id", "path_to_menu_file"]
             })
-
     </script>
 
     <link rel="stylesheet" type="text/css" href="~/assets/css/styles.css" />
@@ -43,29 +38,27 @@ http://www.templatemo.com/preview/templatemo_341_web_store
     <script language="javascript" type="text/javascript" src="~/assets/scripts/slideitmoo-1.1.js"></script>
     <script language="javascript" type="text/javascript">
             window.addEvents({
-                'domready': function(){
+                'domready': function () {
                     /* thumbnails example , div containers */
                     new SlideItMoo({
-                                overallContainer: 'SlideItMoo_outer',
-                                elementScrolled: 'SlideItMoo_inner',
-                                thumbsContainer: 'SlideItMoo_items',
-                                itemsVisible: 5,
-                                elemsSlide: 2,
-                                duration: 200,
-                                itemsSelector: '.SlideItMoo_element',
-                                itemWidth: 171,
-                                showControls:1});
+                        overallContainer: 'SlideItMoo_outer',
+                        elementScrolled: 'SlideItMoo_inner',
+                        thumbsContainer: 'SlideItMoo_items',
+                        itemsVisible: 5,
+                        elemsSlide: 2,
+                        duration: 200,
+                        itemsSelector: '.SlideItMoo_element',
+                        itemWidth: 171,
+                        showControls: 1
+                    });
                 },
-
             });
 
-            function clearText(field)
-            {
+            function clearText(field) {
                 if (field.defaultValue == field.value) field.value = '';
                 else if (field.value == '') field.value = field.defaultValue;
             }
     </script>
-
 </head>
 
 <body id="home">
@@ -73,7 +66,7 @@ http://www.templatemo.com/preview/templatemo_341_web_store
     <div id="templatemo_wrapper">
         <div id="templatemo_header">
             <div id="site_title">
-                <h1><a href="#">Free Website Template</a></h1>
+                <h1><a href="@Url.Action("Index", "Home")">Web Store</a></h1>
             </div>
 
             <div id="header_right">
@@ -85,7 +78,7 @@ http://www.templatemo.com/preview/templatemo_341_web_store
                 </ul>
                 <div class="cleaner"></div>
                 <div id="templatemo_search">
-                    <form action="#" method="get">
+                    <form action="@Url.Action("Index", "Product")" method="get">
                         <input type="text" value="Search" name="keyword" id="keyword" title="keyword" onfocus="clearText(this)" onblur="clearText(this)" class="txt_field" />
                         <input type="submit" name="Search" value="" alt="Search" id="searchbutton" title="Search" class="sub_btn" />
                     </form>
@@ -95,9 +88,9 @@ http://www.templatemo.com/preview/templatemo_341_web_store
 
         <div id="templatemo_menu" class="ddsmoothmenu">
             <ul>
-                <li><a href="~/assets/images/index.html" class="selected">Home</a></li>
+                <li><a href="@Url.Action("Index", "Home")" class="selected">Home</a></li>
                 <li>
-                    <a href="~/assets/images/products.html">Products</a>
+                    <a href="@Url.Action("Index", "Product")">Products</a>
                     <ul>
                         <li><a href="#">Sub menu 1</a></li>
                         <li><a href="#">Sub menu 2</a></li>
@@ -105,18 +98,19 @@ http://www.templatemo.com/preview/templatemo_341_web_store
                     </ul>
                 </li>
                 <li>
-                    <a href="~/assets/about.html">About</a>
+                    <a href="@Url.Action("About", "Home")">About</a>
                     <ul>
-                        <li><a href="~/assets/#">Sub menu 1</a></li>
-                        <li><a href="~/assets/#">Sub menu 2</a></li>
-                        <li><a href="~/assets/#">Sub menu 3</a></li>
-                        <li><a href="~/assets/#">Sub menu 4</a></li>
-                        <li><a href="~/assets/#">Sub menu 5</a></li>
+                        <li><a href="#">Sub menu 1</a></li>
+                        <li><a href="#">Sub menu 2</a></li>
+                        <li><a href="#">Sub menu 3</a></li>
+                        <li><a href="#">Sub menu 4</a></li>
+                        <li><a href="#">Sub menu 5</a></li>
                     </ul>
                 </li>
-                <li><a href="~/assets/faqs.html">FAQs</a></li>
-                <li><a href="~/assets/checkout.html">Checkout</a></li>
-                <li><a href="~/assets/contact.html">Contact</a></li>
+                <li><a href="#">FAQs</a></li>
+                <li><a href="@Url.Action("Checkout", "Home")">Checkout</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a href="@Url.Action("Register", "Account")">Register</a></li>
             </ul>
             <br style="clear: left" />
         </div> <!-- end of templatemo_menu -->
@@ -125,7 +119,7 @@ http://www.templatemo.com/preview/templatemo_341_web_store
             <img src="~/assets/images/templatemo_image_01.png" alt="Image 01" />
             <h1>Introducing Web Store</h1>
             <p>Web Store is a free css template for your personal or commercial websites. Feel free to download, edit and use this template for any purpose.</p>
-            <a href="#" class="buy_now">Browse All Products</a>
+            <a href="@Url.Action("Index", "Product")" class="buy_now">Browse All Products</a>
         </div> <!-- END of middle -->
 
         <div id="templatemo_main_top"></div>
@@ -165,7 +159,7 @@ http://www.templatemo.com/preview/templatemo_341_web_store
                                 </a>
                             </div>
                             <div class="SlideItMoo_element">
-                                <a href="#slide6" target="_parent">
+                                <a href="#slide7" target="_parent">
                                     <img src="~/assets/images/gallery/07.jpg" alt="product 7" />
                                 </a>
                             </div>
@@ -209,8 +203,8 @@ http://www.templatemo.com/preview/templatemo_341_web_store
             <div class="col col_16">
                 <h4>Pages</h4>
                 <ul class="footer_menu">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Services</a></li>
+                    <li><a href="@Url.Action("Index", "Home")">Home</a></li>
+                    <li><a href="@Url.Action("About", "Home")">About</a></li>
                     <li><a href="#">Shipping</a></li>
                     <li><a href="#">Privacy</a></li>
                 </ul>
@@ -246,5 +240,6 @@ http://www.templatemo.com/preview/templatemo_341_web_store
 
     </div>
 
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

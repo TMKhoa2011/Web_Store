@@ -32,5 +32,36 @@ namespace Web_Store.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+        public IActionResult About()
+        {
+            return View();
+        }
+        [HttpGet]
+        public IActionResult Checkout()
+        {
+            var model = new CheckoutViewModel
+            {
+                TotalAmount = 140
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Checkout(CheckoutViewModel model, string paymentMethod)
+        {
+            if (!model.AcceptTerms)
+            {
+                ModelState.AddModelError(nameof(model.AcceptTerms), "Bạn cần đồng ý với Terms of Use trước khi thanh toán.");
+            }
+
+            if (ModelState.IsValid)
+            {
+                TempData["CheckoutSuccess"] = $"Đặt hàng thành công qua {paymentMethod ?? "Checkout"} cho {model.FullName}!";
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View(model);
+        }
     }
 }
